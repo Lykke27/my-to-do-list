@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
+import {Todolist} from "./components/Todolist";
 
 function App() {
     return (
         <div className="App">
-            Hello world!
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt, porro.
+            <Todolist/>
         </div>
     );
 }
