@@ -1,14 +1,18 @@
 import React, {useState, KeyboardEvent, ChangeEvent} from "react";
+import Button from "@material-ui/core/Button"
+import '../App.css';
+import SaveIcon from "@material-ui/icons/Save";
+import {ButtonGroup} from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
+import Checkbox from "@material-ui/core/Checkbox";
+import TextField from "@material-ui/core/TextField";
 
-export type FilterValuesType = 'all' | 'active' | 'done'
-
-
+export type FilterValuesType = 'all' | 'active' | 'done';
 type TasksPropsType = {
     id: string
     title: string
     isDone: boolean
 }
-
 type PropsType = {
     title: string
     tasks: Array<TasksPropsType>
@@ -45,29 +49,46 @@ export const Todolist = (props: PropsType) => {
     return (
         <div>
             <h2>{props.title}</h2>
-            <input type="text" value={title}
-                   onChange={updateInput}
-                   onKeyPress={onKeyPressAddTask}
+            <TextField value={title}
+                       onChange={updateInput}
+                       onKeyPress={onKeyPressAddTask}
+                       label={"Task to do"}
+                       placeholder={'Enter something'}
             />
-            <button onClick={addTask}>Add</button>
+            <Button startIcon={<SaveIcon/>}
+                    size={"small"}
+                    onClick={addTask}
+                    variant="contained"
+                    color="primary">Add</Button>
             <ul>
                 {
                     props.tasks.map(t => {
                         const removeTask = () => props.removeTask(t.id)
                         return (
                             <li>
-                                <input type="checkbox" checked={t.isDone}/>
-                                <span>{t.title}</span>
-                                <button onClick={removeTask}>x</button>
+                                <span className="task">
+                                 <Checkbox
+                                     checked={t.isDone}
+                                     color={"primary"}
+                                 />
+                                 <span>{t.title}</span>
+                                 <Button
+                                     startIcon={<DeleteIcon/>}
+                                     onClick={removeTask}
+                                     variant="contained"
+                                     color="secondary"/>
+                                </span>
                             </li>
                         )
                     })
                 }
             </ul>
             <div>
-                <button onClick={setAllFilter}>All</button>
-                <button onClick={setActiveFilter}>Active</button>
-                <button onClick={setDoneFilter}>Done</button>
+                <ButtonGroup variant="contained" color="primary">
+                    <Button onClick={setAllFilter}>All</Button>
+                    <Button onClick={setActiveFilter}>Active</Button>
+                    <Button onClick={setDoneFilter}>Done</Button>
+                </ButtonGroup>
             </div>
         </div>
     )
