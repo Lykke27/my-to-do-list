@@ -20,14 +20,20 @@ type PropsType = {
     removeTask: (taskId: string) => void
     changeFilter: (filter: FilterValuesType) => void
     addTask: (title: string) => void
+    changeStatus: (id:string, isDone: boolean) => void
 }
 
 export const Todolist = (props: PropsType) => {
     let [title, setTitle] = useState('')
+    let [error, setError] = useState<string | null>(null)
 
     const addTask = () => {
-        props.addTask(title)
-        setTitle('')
+       if (title.trim() !== ''){
+           props.addTask(title)
+           setTitle('')
+       } else {
+           setError('Title is required')
+       }
     }
     const onKeyPressAddTask = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
@@ -36,6 +42,7 @@ export const Todolist = (props: PropsType) => {
     }
     const updateInput = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
+        setError(null)
     }
     const setAllFilter = () => {
         props.changeFilter("all")
@@ -46,6 +53,8 @@ export const Todolist = (props: PropsType) => {
     const setDoneFilter = () => {
         props.changeFilter("done")
     }
+
+
 
     return (
         <div className={"toDoList"}>
@@ -65,15 +74,21 @@ export const Todolist = (props: PropsType) => {
                         onClick={addTask}
                         variant="contained"
                         color="primary">Add</Button>
+                {error &&  <div className="error-message">{error}</div>}
                 <ul>
                     {
                         props.tasks.map(t => {
                             const removeTask = () => props.removeTask(t.id)
+                            const changeCheckboxStatus = (e:ChangeEvent<HTMLInputElement>) => {
+                                let newCheckboxValue = e.currentTarget.checked;
+                                props.changeStatus(t.id, newCheckboxValue)
+                            }
                             return (
                                 <li className={"li-style"}>
                                     <Checkbox
                                         checked={t.isDone}
                                         color={"primary"}
+                                        onChange={changeCheckboxStatus}
                                     />
                                     <span>{t.title}</span>
                                     <Button

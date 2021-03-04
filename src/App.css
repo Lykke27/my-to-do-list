@@ -18,9 +18,23 @@
 .li-style {
     width: 75%;
     /*background-color: #7986CB;*/
-    text-align: end;
+    text-align: left;
+    overflow-wrap: break-word;
+
+    /*justify-content: space-between;*/
 }
+
 
 .li-style Button {
     margin: 0 10px;
+}
+
+.error {
+    border: red 1px solid;
+}
+
+.error-message {
+    color: red;
+    text-align: left;
+    padding-left: 25px;
 }
