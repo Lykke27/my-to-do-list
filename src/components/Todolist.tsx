@@ -1,11 +1,12 @@
-import React, {useState, KeyboardEvent, ChangeEvent} from "react";
+import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import Button from "@material-ui/core/Button"
 import '../App.css';
 import SaveIcon from "@material-ui/icons/Save";
 import {ButtonGroup} from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
 import Checkbox from "@material-ui/core/Checkbox";
 import TextField from "@material-ui/core/TextField";
+import 'fontsource-roboto';
+import Typography from '@material-ui/core/Typography'
 
 export type FilterValuesType = 'all' | 'active' | 'done';
 type TasksPropsType = {
@@ -47,48 +48,53 @@ export const Todolist = (props: PropsType) => {
     }
 
     return (
-        <div>
-            <h2>{props.title}</h2>
-            <TextField value={title}
-                       onChange={updateInput}
-                       onKeyPress={onKeyPressAddTask}
-                       label={"Task to do"}
-                       placeholder={'Enter something'}
-            />
-            <Button startIcon={<SaveIcon/>}
-                    size={"small"}
-                    onClick={addTask}
-                    variant="contained"
-                    color="primary">Add</Button>
-            <ul>
-                {
-                    props.tasks.map(t => {
-                        const removeTask = () => props.removeTask(t.id)
-                        return (
-                            <li>
-                                <span className="task">
-                                 <Checkbox
-                                     checked={t.isDone}
-                                     color={"primary"}
-                                 />
-                                 <span>{t.title}</span>
-                                 <Button
-                                     startIcon={<DeleteIcon/>}
-                                     onClick={removeTask}
-                                     variant="contained"
-                                     color="secondary"/>
-                                </span>
-                            </li>
-                        )
-                    })
-                }
-            </ul>
-            <div>
-                <ButtonGroup variant="contained" color="primary">
-                    <Button onClick={setAllFilter}>All</Button>
-                    <Button onClick={setActiveFilter}>Active</Button>
-                    <Button onClick={setDoneFilter}>Done</Button>
-                </ButtonGroup>
+        <div className={"toDoList"}>
+            <div className={"wrapper"}>
+                <Typography variant={"subtitle1"}>
+                    <h2>{props.title}</h2>
+                </Typography>
+
+                <TextField value={title}
+                           onChange={updateInput}
+                           onKeyPress={onKeyPressAddTask}
+                           label={"Task to do"}
+                           placeholder={'Enter something'}
+                />
+                <Button startIcon={<SaveIcon/>}
+                        size={"small"}
+                        onClick={addTask}
+                        variant="contained"
+                        color="primary">Add</Button>
+                <ul>
+                    {
+                        props.tasks.map(t => {
+                            const removeTask = () => props.removeTask(t.id)
+                            return (
+                                <li className={"li-style"}>
+                                    <Checkbox
+                                        checked={t.isDone}
+                                        color={"primary"}
+                                    />
+                                    <span>{t.title}</span>
+                                    <Button
+                                        // startIcon={<DeleteIcon/>}
+                                        onClick={removeTask}
+                                        variant="contained"
+                                        color="secondary"
+                                        size={"small"}
+                                    >x</Button>
+                                </li>
+                            )
+                        })
+                    }
+                </ul>
+                <div>
+                    <ButtonGroup variant="contained" color="primary">
+                        <Button onClick={setAllFilter}>All</Button>
+                        <Button onClick={setActiveFilter}>Active</Button>
+                        <Button onClick={setDoneFilter}>Done</Button>
+                    </ButtonGroup>
+                </div>
             </div>
         </div>
     )

@@ -1,8 +1,26 @@
 .App {
-    font-family: Roboto;
-    margin: 50px;
+    margin: 10px 20px;
 }
 
-.task {
+.toDoList {
+    /*background-color: red;*/
+}
 
+.wrapper {
+    background-color: #C5CAE9;
+    border-radius: 20px;
+    width: 300px;
+    padding: 4px 20px 15px;
+
+    text-align: center;
+}
+
+.li-style {
+    width: 75%;
+    /*background-color: #7986CB;*/
+    text-align: end;
+}
+
+.li-style Button {
+    margin: 0 10px;
 }
