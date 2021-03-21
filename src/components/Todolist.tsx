@@ -92,7 +92,6 @@ export const Todolist = (props: PropsType) => {
                                     />
                                     <span>{t.title}</span>
                                     <Button
-                                        // startIcon={<DeleteIcon/>}
                                         onClick={removeTask}
                                         variant="contained"
                                         color="secondary"
